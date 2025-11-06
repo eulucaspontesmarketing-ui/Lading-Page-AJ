@@ -8,7 +8,7 @@ const ShieldCheckIcon = () => (
 
 const BuildingLibraryIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6M9 11.25h6M9 15.75h6" />
   </svg>
 );
 
@@ -17,6 +17,7 @@ const DocumentTextIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
   </svg>
 );
+
 
 const areas = [
   {
@@ -44,7 +45,7 @@ const PracticeAreas: React.FC = () => {
           Principais Áreas de Atuação
         </h2>
         <p className="font-sans text-base md:text-lg text-purplish-black/80 max-w-2xl mx-auto mb-12">
-          Com experiência sólida e atendimento individualizado, atuamos nas seguintes áreas:
+          Com experiência sólida e atendimento individualizado, Agenor atua nas seguintes áreas:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {areas.map((area) => (

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import type { Submission } from '../types';
 import CloseIcon from './icons/CloseIcon';
@@ -13,7 +14,7 @@ const SubmissionsModal: React.FC<SubmissionsModalProps> = ({ isOpen, onClose, su
 
   return (
     <div className="fixed inset-0 bg-purplish-black/80 z-50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-purplish-black text-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
+      <div className="bg-purplish-black text-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="sticky top-0 bg-purplish-black p-4 border-b border-gold/20 flex justify-between items-center">
           <h2 className="font-serif text-2xl text-gold">Cadastros Realizados</h2>
           <button onClick={onClose} className="text-white hover:text-gold transition-colors">
@@ -21,7 +22,7 @@ const SubmissionsModal: React.FC<SubmissionsModalProps> = ({ isOpen, onClose, su
           </button>
         </div>
         
-        <div className="p-6 overflow-y-auto">
+        <div className="p-6">
           {submissions.length === 0 ? (
             <p className="text-soft-gold/80 text-center py-8">Nenhum cadastro recebido ainda.</p>
           ) : (
@@ -35,7 +36,7 @@ const SubmissionsModal: React.FC<SubmissionsModalProps> = ({ isOpen, onClose, su
                   <p className="text-sm"><strong className="text-gold/80">E-mail:</strong> {sub.email}</p>
                   <p className="text-sm"><strong className="text-gold/80">Telefone:</strong> {sub.phone}</p>
                   <p className="text-sm"><strong className="text-gold/80">Assunto:</strong> {sub.subject}</p>
-                  <p className="mt-2 text-sm bg-white/10 p-2 rounded whitespace-pre-wrap">{sub.message}</p>
+                  <p className="mt-2 text-sm bg-white/10 p-2 rounded">{sub.message}</p>
                 </div>
               ))}
             </div>
