@@ -1,9 +1,8 @@
 import React from 'react';
 
-// IMPORTANTE: Substitua pelo ID da sua Planilha Google.
-const GOOGLE_SHEET_ID = "COLE_AQUI_O_ID_DA_PLANILHA";
-const GOOGLE_SHEET_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/edit?usp=sharing`;
-
+// !!! IMPORTANT: Replace this with your actual Google Sheet ID !!!
+const SPREADSHEET_ID = 'COLE_AQUI_O_ID_DA_PLANILHA';
+const googleSheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/edit?usp=sharing`;
 
 const Footer: React.FC = () => {
   return (
@@ -19,12 +18,12 @@ const Footer: React.FC = () => {
         </div>
       </footer>
       <a
-        href={GOOGLE_SHEET_URL}
+        href={googleSheetUrl}
         target="_blank"
         rel="noopener noreferrer"
         title="Ver Cadastros"
         className="fixed bottom-5 right-5 z-50 bg-purplish-black text-gold text-3xl w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-dark-brown hover:scale-110"
-        style={{ textDecoration: 'none' }}
+        style={{ textShadow: '0 2px 4px rgba(202, 164, 95, 0.5)' }}
       >
         🛡️
       </a>
