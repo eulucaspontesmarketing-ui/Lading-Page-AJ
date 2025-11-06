@@ -24,13 +24,13 @@ const Testimonials: React.FC = () => {
             O que dizem nossos clientes
           </h2>
           <p className="font-sans text-base md:text-lg text-purplish-black/80 mb-16">
-            Veja o que pessoas que já confiaram no Dr. Agenor dizem sobre o atendimento.
+            A satisfação dos nossos clientes é a nossa maior recompensa.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonialsData.map((testimonial, index) => (
-            <div key={index} className="bg-white p-8 rounded-lg shadow-lg">
-              <p className="font-sans text-purplish-black/90 italic mb-6">
+            <div key={index} className="bg-white p-8 rounded-lg shadow-lg flex flex-col">
+              <p className="font-sans text-purplish-black/90 italic mb-6 flex-grow">
                 “{testimonial.quote}”
               </p>
               <p className="font-sans font-semibold text-right text-dark-brown">

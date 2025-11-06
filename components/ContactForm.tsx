@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { Submission } from '../types';
 
@@ -26,7 +25,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onFormSubmit }) => {
     onFormSubmit(formData);
     setIsSubmitted(true);
     setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' });
-    setTimeout(() => setIsSubmitted(false), 5000); // Hide message after 5 seconds
+    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (

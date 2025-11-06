@@ -8,7 +8,7 @@ const Footer: React.FC<FooterProps> = ({ onShieldClick }) => {
   return (
     <footer className="bg-purplish-black text-soft-gold py-8">
       <div className="container mx-auto px-6 text-center text-sm font-sans">
-        <p>© 2025 – Agenor Junio Rocha – Advogado | Todos os direitos reservados.</p>
+        <p>© 2024 – Agenor Junio Rocha – Advogado | Todos os direitos reservados.</p>
         <div className="mt-4">
           <a href="#" className="hover:text-gold transition-colors mx-2">Termos de Uso</a>
           <span className="opacity-50">|</span>
@@ -19,6 +19,7 @@ const Footer: React.FC<FooterProps> = ({ onShieldClick }) => {
             onClick={onShieldClick}
             className="text-2xl hover:opacity-80 transition-opacity"
             aria-label="Ver cadastros"
+            title="Acesso Administrativo"
           >
             🛡️
           </button>
