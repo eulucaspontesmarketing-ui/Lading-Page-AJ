@@ -1,34 +1,9 @@
+import React from 'react';
 
-import React, { useState } from 'react';
-import type { Submission } from '../types';
-
-interface ContactFormProps {
-  // FIX: Omit 'timestamp' as it is generated in the parent component, aligning with the type in App.tsx.
-  onFormSubmit: (submission: Omit<Submission, 'id' | 'date' | 'timestamp'>) => void;
-}
-
-const ContactForm: React.FC<ContactFormProps> = ({ onFormSubmit }) => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onFormSubmit(formData);
-    setIsSubmitted(true);
-    setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' });
-    setTimeout(() => setIsSubmitted(false), 5000); // Hide message after 5 seconds
-  };
+const ContactForm: React.FC = () => {
+  const phoneNumber = '5592987654321'; // Exemplo de número de telefone para Manaus, Brasil
+  const message = encodeURIComponent('Olá, Dr. Agenor. Encontrei seu site e gostaria de agendar uma consulta.');
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
   return (
     <section id="contato" className="py-20 md:py-32 bg-gray-50">
@@ -38,39 +13,17 @@ const ContactForm: React.FC<ContactFormProps> = ({ onFormSubmit }) => {
             Fale com o Escritório
           </h2>
           <p className="font-sans text-base md:text-lg text-purplish-black/80 mb-12">
-            Preencha o formulário abaixo e receba o retorno diretamente do advogado.
+            Clique no botão abaixo para iniciar uma conversa via WhatsApp e agendar sua consulta. O atendimento é rápido e direto com o advogado.
           </p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full md:w-auto inline-block bg-gold text-purplish-black font-bold py-4 px-12 rounded-lg text-lg uppercase tracking-wider hover:bg-soft-gold hover:scale-105 transition-all duration-300 shadow-lg"
+          >
+            FALAR VIA WHATSAPP
+          </a>
         </div>
-        
-        {isSubmitted ? (
-          <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md max-w-3xl mx-auto text-center" role="alert">
-            <p className="font-bold text-lg">✅ Recebemos sua mensagem!</p>
-            <p>Em breve entraremos em contato para entender sua necessidade.</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="md:col-span-2">
-              <input type="text" name="fullName" placeholder="Nome Completo" value={formData.fullName} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
-            </div>
-            <div>
-              <input type="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
-            </div>
-            <div>
-              <input type="tel" name="phone" placeholder="Telefone / WhatsApp" value={formData.phone} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
-            </div>
-            <div className="md:col-span-2">
-              <input type="text" name="subject" placeholder="Assunto" value={formData.subject} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
-            </div>
-            <div className="md:col-span-2">
-              <textarea name="message" placeholder="Mensagem" value={formData.message} onChange={handleChange} rows={5} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition"></textarea>
-            </div>
-            <div className="md:col-span-2 text-center">
-              <button type="submit" className="w-full md:w-auto bg-gold text-purplish-black font-bold py-3 px-12 rounded-lg text-lg uppercase tracking-wider hover:bg-soft-gold hover:scale-105 transition-all duration-300 shadow-lg">
-                ENVIAR MENSAGEM
-              </button>
-            </div>
-          </form>
-        )}
       </div>
     </section>
   );

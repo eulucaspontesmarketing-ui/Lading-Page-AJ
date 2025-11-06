@@ -1,6 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
-import type { Submission } from './types';
+import React from 'react';
 import Hero from './components/Hero';
 import Commitment from './components/Commitment';
 import About from './components/About';
@@ -9,10 +7,6 @@ import Testimonials from './components/Testimonials';
 import ContactForm from './components/ContactForm';
 import Faq from './components/Faq';
 import Footer from './components/Footer';
-import SubmissionsModal from './components/SubmissionsModal';
-import Header from './components/Header';
-
-const STORAGE_KEY = 'formSubmissions';
 
 const Location: React.FC = () => {
   return (
@@ -44,58 +38,19 @@ const Location: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [submissions, setSubmissions] = useState<Submission[]>(() => {
-    try {
-      const storedSubmissions = localStorage.getItem(STORAGE_KEY);
-      if (storedSubmissions) {
-        const parsedSubmissions: Submission[] = JSON.parse(storedSubmissions);
-        const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
-        return parsedSubmissions.filter(sub => sub.timestamp > twentyFourHoursAgo);
-      }
-    } catch (error) {
-      console.error("Failed to load submissions from local storage", error);
-    }
-    return [];
-  });
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
-    } catch (error) {
-      console.error("Failed to save submissions to local storage", error);
-    }
-  }, [submissions]);
-
-  const addSubmission = (submission: Omit<Submission, 'id' | 'date' | 'timestamp'>) => {
-    const newSubmission: Submission = {
-      ...submission,
-      id: new Date().toISOString(),
-      date: new Date().toLocaleString('pt-BR'),
-      timestamp: Date.now(),
-    };
-    setSubmissions(prev => [newSubmission, ...prev]);
-  };
-
   return (
     <div className="bg-white text-purplish-black font-sans">
-      <Header />
       <main>
         <Hero />
         <Commitment />
         <About />
         <PracticeAreas />
         <Testimonials />
-        <ContactForm onFormSubmit={addSubmission} />
+        <ContactForm />
         <Faq />
         <Location />
       </main>
-      <Footer onShieldClick={() => setIsModalOpen(true)} />
-      <SubmissionsModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        submissions={submissions}
-      />
+      <Footer />
     </div>
   );
 };
