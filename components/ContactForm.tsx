@@ -1,66 +1,33 @@
+
 import React, { useState } from 'react';
+import type { Submission } from '../types';
 
-// !!! IMPORTANT: Replace this with your actual Google Apps Script Web App URL !!!
-const GOOGLE_SHEET_WEB_APP_URL = "COLE_AQUI_A_URL_DO_SEU_WEB_APP";
+interface ContactFormProps {
+  // FIX: Omit 'timestamp' as it is generated in the parent component, aligning with the type in App.tsx.
+  onFormSubmit: (submission: Omit<Submission, 'id' | 'date' | 'timestamp'>) => void;
+}
 
-const ContactForm: React.FC = () => {
+const ContactForm: React.FC<ContactFormProps> = ({ onFormSubmit }) => {
   const [formData, setFormData] = useState({
-    nome: '',
+    fullName: '',
     email: '',
-    telefone: '',
-    assunto: '',
-    mensagem: '',
+    phone: '',
+    subject: '',
+    message: '',
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
-    
-    try {
-      await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      setStatus('success');
-      setFormData({ nome: '', email: '', telefone: '', assunto: '', mensagem: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (err) {
-      console.error("Erro ao enviar:", err);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
-    }
-  };
-  
-  const renderStatusMessage = () => {
-    switch (status) {
-      case 'success':
-        return (
-          <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md max-w-3xl mx-auto text-center" role="alert">
-            <p className="font-bold text-lg">✅ Seus dados foram enviados com sucesso!</p>
-            <p>Entraremos em contato em breve.</p>
-          </div>
-        );
-      case 'error':
-        return (
-          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md max-w-3xl mx-auto text-center" role="alert">
-            <p className="font-bold text-lg">❌ Ocorreu um erro ao enviar.</p>
-            <p>Por favor, tente novamente em alguns instantes.</p>
-          </div>
-        );
-      default:
-        return null;
-    }
+    onFormSubmit(formData);
+    setIsSubmitted(true);
+    setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' });
+    setTimeout(() => setIsSubmitted(false), 5000); // Hide message after 5 seconds
   };
 
   return (
@@ -75,26 +42,31 @@ const ContactForm: React.FC = () => {
           </p>
         </div>
         
-        {status === 'success' || status === 'error' ? renderStatusMessage() : (
+        {isSubmitted ? (
+          <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md max-w-3xl mx-auto text-center" role="alert">
+            <p className="font-bold text-lg">✅ Recebemos sua mensagem!</p>
+            <p>Em breve entraremos em contato para entender sua necessidade.</p>
+          </div>
+        ) : (
           <form onSubmit={handleSubmit} className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
-              <input type="text" name="nome" placeholder="Nome Completo" value={formData.nome} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
+              <input type="text" name="fullName" placeholder="Nome Completo" value={formData.fullName} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
             </div>
             <div>
               <input type="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
             </div>
             <div>
-              <input type="tel" name="telefone" placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
+              <input type="tel" name="phone" placeholder="Telefone / WhatsApp" value={formData.phone} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
             </div>
             <div className="md:col-span-2">
-              <input type="text" name="assunto" placeholder="Assunto" value={formData.assunto} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
+              <input type="text" name="subject" placeholder="Assunto" value={formData.subject} onChange={handleChange} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition" />
             </div>
             <div className="md:col-span-2">
-              <textarea name="mensagem" placeholder="Mensagem" value={formData.mensagem} onChange={handleChange} rows={5} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition"></textarea>
+              <textarea name="message" placeholder="Mensagem" value={formData.message} onChange={handleChange} rows={5} required className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition"></textarea>
             </div>
             <div className="md:col-span-2 text-center">
-              <button type="submit" disabled={status === 'submitting'} className="w-full md:w-auto bg-gold text-purplish-black font-bold py-3 px-12 rounded-lg text-lg uppercase tracking-wider hover:bg-soft-gold hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                {status === 'submitting' ? 'Enviando...' : 'ENVIAR MENSAGEM'}
+              <button type="submit" className="w-full md:w-auto bg-gold text-purplish-black font-bold py-3 px-12 rounded-lg text-lg uppercase tracking-wider hover:bg-soft-gold hover:scale-105 transition-all duration-300 shadow-lg">
+                ENVIAR MENSAGEM
               </button>
             </div>
           </form>

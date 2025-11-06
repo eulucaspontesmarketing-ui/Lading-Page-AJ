@@ -7,4 +7,5 @@ export interface Submission {
   subject: string;
   message: string;
   date: string;
+  timestamp: number;
 }
