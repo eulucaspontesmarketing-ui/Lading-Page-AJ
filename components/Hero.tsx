@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
         <img 
           src="https://i.postimg.cc/D0sz1Tb9/Design-sem-nome-11-removebg-preview.png" 
           alt="Agenor Junio Rocha Advocacia Logo" 
-          className="mx-auto mb-10 -mt-16 w-48 md:w-64" 
+          className="mx-auto mb-8 -mt-12 w-32 md:w-40" 
         />
         <div className="relative pl-6 border-l-2 border-gold/80">
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-shadow">

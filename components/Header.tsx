@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-purplish-black/90 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#inicio" className="flex items-center space-x-2">
-          <img src="https://i.postimg.cc/BbqPT8MB/460504826-383981768085918-9095168380268422964-n.jpg" alt="Logo Agenor Junio Rocha" className="h-10 w-10 object-contain" />
+          <img src="https://i.postimg.cc/BbqPT8MB/460504826-383981768085918-9095168380268422964-n.jpg" alt="Logo Agenor Junio Rocha" className="h-8 w-8 object-contain rounded-full" />
         </a>
         
         <nav className="hidden md:flex space-x-8">
